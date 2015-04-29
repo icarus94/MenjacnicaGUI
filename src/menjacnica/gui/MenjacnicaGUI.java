@@ -16,6 +16,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
+import javax.swing.JTable;
 
 public class MenjacnicaGUI extends JFrame {
 
@@ -27,10 +32,12 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton btnDodajKurs;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
-	private JButton btnOpen;
-	private JButton btnNewButton_2;
-	private JButton btnExit;
-	private JButton btnAbout;
+	private JMenuItem mntmOpen;
+	private JMenuItem mntmSave;
+	private JMenuItem mntmExit;
+	private JMenuItem mntmAbout;
+	private JScrollPane scrollPane;
+	private JPanel panel_1;
 
 	/**
 	 * Launch the application.
@@ -61,6 +68,8 @@ public class MenjacnicaGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanel(), BorderLayout.EAST);
+		contentPane.add(getScrollPane(), BorderLayout.CENTER);
+		contentPane.add(getPanel_1(), BorderLayout.SOUTH);
 	}
 
 	private JMenuBar getMenuBar_1() {
@@ -74,16 +83,16 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenu getMnFile() {
 		if (mnFile == null) {
 			mnFile = new JMenu("File");
-			mnFile.add(getBtnOpen());
-			mnFile.add(getBtnNewButton_2());
-			mnFile.add(getBtnExit());
+			mnFile.add(getMntmOpen());
+			mnFile.add(getMntmSave());
+			mnFile.add(getMntmExit());
 		}
 		return mnFile;
 	}
 	private JMenu getMnHelp() {
 		if (mnHelp == null) {
 			mnHelp = new JMenu("Help");
-			mnHelp.add(getBtnAbout());
+			mnHelp.add(getMntmAbout());
 		}
 		return mnHelp;
 	}
@@ -120,31 +129,46 @@ public class MenjacnicaGUI extends JFrame {
 		}
 		return btnNewButton_1;
 	}
-	private JButton getBtnOpen() {
-		if (btnOpen == null) {
-			btnOpen = new JButton("Open");
-			btnOpen.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/com/sun/java/swing/plaf/windows/icons/Directory.gif")));
+	private JMenuItem getMntmOpen() {
+		if (mntmOpen == null) {
+			mntmOpen = new JMenuItem("Open");
+			mntmOpen.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/file.gif")));
+			mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		}
-		return btnOpen;
+		return mntmOpen;
 	}
-	private JButton getBtnNewButton_2() {
-		if (btnNewButton_2 == null) {
-			btnNewButton_2 = new JButton("Save");
-			btnNewButton_2.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
+	private JMenuItem getMntmSave() {
+		if (mntmSave == null) {
+			mntmSave = new JMenuItem("Save");
+			mntmSave.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
+			mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		}
-		return btnNewButton_2;
+		return mntmSave;
 	}
-	private JButton getBtnExit() {
-		if (btnExit == null) {
-			btnExit = new JButton("Exit");
-			btnExit.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/close.gif")));
+	private JMenuItem getMntmExit() {
+		if (mntmExit == null) {
+			mntmExit = new JMenuItem("Exit");
+			mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
 		}
-		return btnExit;
+		return mntmExit;
 	}
-	private JButton getBtnAbout() {
-		if (btnAbout == null) {
-			btnAbout = new JButton("About");
+	private JMenuItem getMntmAbout() {
+		if (mntmAbout == null) {
+			mntmAbout = new JMenuItem("About");
 		}
-		return btnAbout;
+		return mntmAbout;
+	}
+	private JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+		}
+		return scrollPane;
+	}
+	private JPanel getPanel_1() {
+		if (panel_1 == null) {
+			panel_1 = new JPanel();
+			panel_1.setPreferredSize(new Dimension(10, 100));
+		}
+		return panel_1;
 	}
 }
