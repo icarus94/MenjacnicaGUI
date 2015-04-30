@@ -8,19 +8,36 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+
 import java.awt.Frame;
+
 import javax.swing.JButton;
+
 import java.awt.FlowLayout;
 import java.awt.Dimension;
+
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
+
 import javax.swing.JTable;
+
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.Rectangle;
+import java.awt.ComponentOrientation;
+import javax.swing.table.DefaultTableModel;
 
 public class MenjacnicaGUI extends JFrame {
 
@@ -38,6 +55,9 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem mntmAbout;
 	private JScrollPane scrollPane;
 	private JPanel panel_1;
+	private JScrollPane scrollPane_1;
+	private JTextPane textPane;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -59,6 +79,7 @@ public class MenjacnicaGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MenjacnicaGUI() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Nikola\\workspace2\\MenjacnicaGUI\\Icons\\6810423-space-screensavers.jpg"));
 		setTitle("Menjacnica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 453, 425);
@@ -132,6 +153,13 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmOpen() {
 		if (mntmOpen == null) {
 			mntmOpen = new JMenuItem("Open");
+			mntmOpen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JFileChooser fc = new JFileChooser();
+					int returnVal = fc.showOpenDialog(rootPane);
+
+				}
+			});
 			mntmOpen.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/file.gif")));
 			mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		}
@@ -161,14 +189,59 @@ public class MenjacnicaGUI extends JFrame {
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
+			scrollPane.setViewportView(getTable());
 		}
 		return scrollPane;
 	}
 	private JPanel getPanel_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
+			panel_1.setBorder(new TitledBorder(null, "Status", TitledBorder.LEFT, TitledBorder.TOP, null, null));
 			panel_1.setPreferredSize(new Dimension(10, 100));
+			panel_1.setLayout(new BorderLayout(0, 0));
+			panel_1.add(getScrollPane_1(), BorderLayout.CENTER);
 		}
 		return panel_1;
+	}
+	private JScrollPane getScrollPane_1() {
+		if (scrollPane_1 == null) {
+			scrollPane_1 = new JScrollPane();
+			scrollPane_1.setViewportView(getTextPane());
+		}
+		return scrollPane_1;
+	}
+	private JTextPane getTextPane() {
+		if (textPane == null) {
+			textPane = new JTextPane();
+		}
+		return textPane;
+	}
+	private JTable getTable() {
+		if (table == null) {
+			table = new JTable();
+			table.setModel(new DefaultTableModel(
+				new Object[][] {
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+				},
+				new String[] {
+					"Sifra", "Skraceni naziv", "Prodajni", "Srednji", "Kupovni", "Naziv"
+				}
+			) {
+				Class[] columnTypes = new Class[] {
+					Integer.class, String.class, Double.class, Double.class, Double.class, String.class
+				};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+			});
+			table.getColumnModel().getColumn(1).setPreferredWidth(95);
+		}
+		return table;
 	}
 }
